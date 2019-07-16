@@ -1,5 +1,5 @@
 const express = require('express');
-const { index, search } = require('../controlles/Country');
+const { index, search, getSlots } = require('../controlles/Country');
 const app = express();
 
 
@@ -40,6 +40,21 @@ app.get('/search-country', (req, res) => {
             err,
         });
     });
+});
+
+app.get('/slots', (req, res) => {
+    const slots = getSlots();
+    if (slots.length > 0) {
+        return res.json({
+            ok: true,
+            slots,
+        });
+    } else {
+        return res.json({
+            ok: false,
+            slots: [],
+        });
+    }
 });
 
 module.exports = app;
